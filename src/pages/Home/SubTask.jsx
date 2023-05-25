@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom";
 import { Container } from "reactstrap";
 
 function SubTask() {
-  const { id } = useParams();
+  const { id } = useParams(); // De que tarea viene
   const [tasks, , handleTaskClick] = useContext(ContextGlobal);
   const keys = Object.keys(tasks[id]);
 

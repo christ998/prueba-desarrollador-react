@@ -12,24 +12,28 @@ function DoTask() {
 
   const handleDoTask = () => {
     if (handleTaskClick(taskId)) {
-      if (taskId.includes(".")) {
-        const [taskId, subTask] = taskId.split(".");
+
+      const taskTitleArray = taskId.split(".");
+      const mainTask = taskTitleArray[0];
+
+      if (taskTitleArray.length === 1) {
         setTasks((prevState) => ({
           ...prevState,
-          [taskId]: {
-            ...prevState[taskId],
-            [subTask]: {
-              ...prevState[taskId][subTask],
-              isCompleted: !findValueByKey(tasks, taskId).isCompleted,
-            },
+          [mainTask]: {
+            ...prevState[mainTask],
+            isCompleted: !findValueByKey(tasks, taskId).isCompleted,
           },
         }));
       } else {
+        // const subTask = taskTitleArray.slice(1).join(".");
         setTasks((prevState) => ({
           ...prevState,
-          [taskId]: {
-            ...prevState[taskId],
-            isCompleted: !findValueByKey(tasks, taskId).isCompleted,
+          [mainTask]: {
+            ...prevState[mainTask],
+            [taskId]: {
+              ...prevState[mainTask][taskId],
+              isCompleted: !findValueByKey(tasks, taskId).isCompleted,
+            },
           },
         }));
       }
